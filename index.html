@@ -100,7 +100,9 @@ html{scroll-snap-type:none}
 body{overflow:hidden}
 .deck-container{
   position:fixed;
-  top:74px;left:0;right:0;bottom:0;
+  /* Top:18 = same as nav-wrap top → cards extend BEHIND the nav.
+     Nav (z-index 100) covers card top region. No body-bg visible between them. */
+  top:18px;left:0;right:0;bottom:0;
   overflow:hidden;z-index:2;
 }
 .deck-stage{
@@ -111,7 +113,7 @@ body{overflow:hidden}
 .deck-slide{
   position:absolute;
   inset:0;
-  padding:6px 4vw 70px;
+  padding:0 4vw 70px;
   display:flex;
   align-items:stretch;
   transition:transform .85s cubic-bezier(.4,0,.2,1),opacity .55s ease,filter .7s ease;
@@ -122,7 +124,8 @@ body{overflow:hidden}
   z-index:0;
 }
 /* In deck mode, compress section paddings so content sits closer to top */
-.deck-slide .section-card{padding-top:28px;padding-bottom:36px}
+/* Card extends behind nav — content needs padding-top to clear nav (nav bottom ~y=66) */
+.deck-slide .section-card{padding-top:80px;padding-bottom:36px}
 .deck-slide .section{padding:0}
 /* Card depth = card's own shadow for the "stacked" look */
 .section-card{box-shadow:0 24px 64px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.22)}
