@@ -397,7 +397,45 @@ body.light .team-stats span::before{background:var(--mint);box-shadow:0 0 4px rg
 body.light .hero-ticker .led{background:#0b7556;box-shadow:0 0 6px rgba(11,117,86,.6)}
 .hero-ticker .msg{font-weight:500;color:var(--text)}
 
-/* ─── Design Value art ─── */
+/* ─── Design Insight — articles & news ─── */
+.di-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-top:32px;max-width:1100px;margin-left:auto;margin-right:auto;text-align:left}
+.di-featured{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .25s ease,border-color .25s ease;backdrop-filter:blur(8px)}
+.di-featured:hover{transform:translateY(-3px);border-color:var(--mint)}
+body.light .di-featured{background:#fff;box-shadow:0 1px 3px rgba(28,26,20,.05)}
+body.light .di-featured:hover{border-color:var(--red);box-shadow:0 8px 22px rgba(219,0,17,.08)}
+.di-feat-art{height:160px;position:relative;background:linear-gradient(135deg,rgba(149,239,209,.18),rgba(203,184,255,.18),rgba(255,193,167,.18));display:flex;align-items:center;justify-content:center;overflow:hidden}
+body.light .di-feat-art{background:linear-gradient(135deg,rgba(255,176,136,.25),rgba(247,103,112,.18),rgba(219,0,17,.15))}
+.di-feat-glow{position:absolute;top:-30%;left:-20%;width:80%;height:160%;background:radial-gradient(circle,rgba(149,239,209,.4),transparent 70%);filter:blur(40px);pointer-events:none}
+body.light .di-feat-glow{background:radial-gradient(circle,rgba(219,0,17,.25),transparent 70%)}
+.di-feat-art svg{width:80px;height:80px;stroke:var(--text);stroke-width:1.4;fill:none;opacity:.7;position:relative;z-index:1}
+.di-feat-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px}
+.di-meta-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.di-feat-title{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.015em;line-height:1.25;margin:0}
+.di-feat-excerpt{font-size:13.5px;color:var(--text-2);line-height:1.6;margin:0}
+.di-feat-cta{font-size:12px;font-weight:600;color:var(--mint);margin-top:6px;letter-spacing:.005em;display:inline-flex;align-items:center;gap:4px}
+body.light .di-feat-cta{color:var(--red)}
+.di-grid{display:grid;grid-template-columns:1fr;gap:10px}
+.di-card{display:flex;flex-direction:column;gap:8px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:inherit;transition:transform .25s ease,border-color .25s ease;backdrop-filter:blur(8px)}
+body.light .di-card{background:#fff;box-shadow:0 1px 2px rgba(28,26,20,.04)}
+.di-card:hover{transform:translateY(-2px);border-color:var(--border-strong)}
+.di-card-title{font-size:14.5px;font-weight:700;color:var(--text);letter-spacing:-.005em;line-height:1.35;margin:0}
+.di-tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;width:fit-content}
+.di-tag-process{background:rgba(149,239,209,.15);color:var(--mint);border:1px solid rgba(149,239,209,.3)}
+.di-tag-system{background:rgba(203,184,255,.15);color:#cbb8ff;border:1px solid rgba(203,184,255,.3)}
+.di-tag-research{background:rgba(255,193,167,.18);color:#ffc1a7;border:1px solid rgba(255,193,167,.3)}
+.di-tag-external{background:rgba(150,150,160,.08);color:var(--text-3);border:1px solid var(--border-strong)}
+body.light .di-tag-process{background:rgba(11,117,86,.1);color:#0b7556;border-color:rgba(11,117,86,.3)}
+body.light .di-tag-system{background:rgba(124,58,237,.1);color:#7c3aed;border-color:rgba(124,58,237,.3)}
+body.light .di-tag-research{background:rgba(219,0,17,.08);color:var(--red);border-color:rgba(219,0,17,.25)}
+body.light .di-tag-external{background:#f5f0e6;color:var(--text-3);border-color:var(--border-strong)}
+.di-meta{font-size:11px;color:var(--text-3);letter-spacing:0}
+.di-foot{margin-top:24px;text-align:center;display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}
+.di-foot-link{font-size:13px;color:var(--text-2);text-decoration:none;font-weight:500;transition:color .15s,gap .15s;display:inline-flex;align-items:center;gap:4px;letter-spacing:-.005em}
+.di-foot-link:hover{color:var(--text);gap:6px}
+.di-foot-sub{font-size:11px;color:var(--text-3);font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:900px){.di-layout{grid-template-columns:1fr}}
+
+/* ─── Design Value art (legacy, kept for reference) ─── */
 .dv-art{margin:36px auto 0;width:min(560px,100%);aspect-ratio:1.4/1;background:var(--surface);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:22px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
 body.light .dv-art{background:#fff}
 .dv-art svg{width:80%;height:80%}
@@ -773,7 +811,7 @@ body.light .cm-icon svg{stroke:var(--red)}
       <a href="#approach" class="nav-link">Approach</a>
       <a href="#ai-driven" class="nav-link">Design Service</a>
       <a href="#design-system" class="nav-link">Design System</a>
-      <a href="#blog" class="nav-link">Blog</a>
+      <a href="#insight" class="nav-link">Insight</a>
       <a href="hsbc-ux-audit-demo-cosmic.html" class="nav-link nav-link-tool" title="Open UX Autopilot — self-serve UX audit tool">UX Autopilot <span class="arr">↗</span></a>
     </nav>
     <div class="nav-actions">
@@ -835,58 +873,67 @@ body.light .cm-icon svg{stroke:var(--red)}
 </div>
     </div>
     <div class="deck-slide">
-      <div class="section-card" data-card="2" data-label="Design value">
+      <div class="section-card" data-card="2" data-label="Design Insight">
   <span class="card-num">02<span class="of">/</span>06</span>
-  <section class="section">
+  <section class="section" id="insight">
   <div class="wrap">
     <div style="text-align:center;max-width:760px;margin:0 auto">
-      <span class="eyebrow" style="margin-left:auto;margin-right:auto">Design value</span>
-      <h2 class="h2">Design that <em>compounds.</em></h2>
-      <p class="lede" style="margin:0 auto">Three numbers that show what good design does to a treasury platform — less rework, more customer trust, faster delivery.</p>
+      <span class="eyebrow" style="margin-left:auto;margin-right:auto">Design Insight</span>
+      <h2 class="h2">What we're <em>reading &amp; writing.</em></h2>
+      <p class="lede" style="margin:0 auto">Voices from the practice, plus the corners of the design world we're paying attention to.</p>
     </div>
-    <div class="dv-metrics">
-      <div class="dv-metric spot-target">
-        <div class="dv-num">−40%</div>
-        <div class="dv-tag">Rework cycle</div>
-        <div class="dv-desc">Less back-and-forth between design and dev. Shared component spec catches mismatches before they ship.</div>
-      </div>
-      <div class="dv-metric spot-target">
-        <div class="dv-num">+35%</div>
-        <div class="dv-tag">Customer confidence</div>
-        <div class="dv-desc">Customers self-report higher confidence completing financial tasks across treasury flows.</div>
-      </div>
-      <div class="dv-metric spot-target">
-        <div class="dv-num">×3.5</div>
-        <div class="dv-tag">Faster delivery</div>
-        <div class="dv-desc">Reusable patterns mean teams ship features in weeks, not quarters. The portfolio compounds.</div>
-      </div>
-    </div>
-    <div class="dv-foot">Each lift compounds — wins in one area lift the others</div>
 
-    <!-- Compact blog strip -->
-    <div class="dv-blog" id="blog">
-      <div class="dv-blog-head">
-        <span class="dv-blog-eyebrow">Latest from the team</span>
-        <a href="#blog" class="dv-blog-see-all">See all posts →</a>
+    <!-- Featured + grid layout -->
+    <div class="di-layout">
+
+      <!-- Featured article (left, big) -->
+      <a href="#" class="di-featured spot-target">
+        <div class="di-feat-art">
+          <div class="di-feat-glow"></div>
+          <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="22"/><path d="M40 18v44M18 40h44" stroke-linecap="round"/><circle cx="40" cy="40" r="6" fill="currentColor" opacity=".35"/></svg>
+        </div>
+        <div class="di-feat-body">
+          <div class="di-meta-row">
+            <span class="di-tag di-tag-process">Spotlight</span>
+            <span class="di-meta">Pepper · This week · 12 min</span>
+          </div>
+          <h3 class="di-feat-title">How we cut 40% from our review cycle</h3>
+          <p class="di-feat-excerpt">The shared component spec workflow that finally aligned design and engineering — what we tried, what failed, and what stuck.</p>
+          <span class="di-feat-cta">Read post →</span>
+        </div>
+      </a>
+
+      <!-- Smaller cards (right column) -->
+      <div class="di-grid">
+        <a href="#" class="di-card spot-target">
+          <span class="di-tag di-tag-system">From the team</span>
+          <h4 class="di-card-title">Three principles that survived design system v2</h4>
+          <span class="di-meta">Karen · 1 month ago · 8 min</span>
+        </a>
+        <a href="#" class="di-card spot-target">
+          <span class="di-tag di-tag-research">From the team</span>
+          <h4 class="di-card-title">Talking to treasury analysts — what changed</h4>
+          <span class="di-meta">Sifan · 6 weeks ago · 6 min</span>
+        </a>
+        <a href="#" class="di-card spot-target">
+          <span class="di-tag di-tag-external">Industry read</span>
+          <h4 class="di-card-title">The case for boring design in financial UX</h4>
+          <span class="di-meta">Nielsen Norman · Saved last week</span>
+        </a>
+        <a href="#" class="di-card spot-target">
+          <span class="di-tag di-tag-external">Industry read</span>
+          <h4 class="di-card-title">Apple's design philosophy in 2026</h4>
+          <span class="di-meta">FastCo Design · Saved 2 weeks ago</span>
+        </a>
       </div>
-      <div class="dv-blog-list">
-        <a href="#blog" class="dv-blog-item spot-target">
-          <span class="dv-blog-meta">Process<span class="dot"></span>12 min</span>
-          <h4 class="dv-blog-title">How we cut 40% from our review cycle</h4>
-          <span class="dv-blog-author">Pepper · 2 weeks ago</span>
-        </a>
-        <a href="#blog" class="dv-blog-item spot-target">
-          <span class="dv-blog-meta">Design system<span class="dot"></span>8 min</span>
-          <h4 class="dv-blog-title">Three principles that survived design system v2</h4>
-          <span class="dv-blog-author">Karen · 1 month ago</span>
-        </a>
-        <a href="#blog" class="dv-blog-item spot-target">
-          <span class="dv-blog-meta">Research<span class="dot"></span>6 min</span>
-          <h4 class="dv-blog-title">Talking to treasury analysts — what changed</h4>
-          <span class="dv-blog-author">Sifan · 6 weeks ago</span>
-        </a>
-      </div>
+
     </div>
+
+    <div class="di-foot">
+      <span class="di-foot-sub">Updated weekly</span>
+      <a href="#" class="di-foot-link">Browse full archive →</a>
+    </div>
+
   </div>
 </section>
 </div>
@@ -1503,7 +1550,7 @@ body.light .cm-icon svg{stroke:var(--red)}
 <!-- Side scroll dots (card-deck navigation) -->
 <div class="scroll-dots" id="scrollDots">
   <button class="scroll-dot" data-card="1" data-label="Welcome" aria-label="Jump to Welcome"></button>
-  <button class="scroll-dot" data-card="2" data-label="Design value" aria-label="Jump to Design value"></button>
+  <button class="scroll-dot" data-card="2" data-label="Design Insight" aria-label="Jump to Design Insight"></button>
   <button class="scroll-dot" data-card="3" data-label="Approach" aria-label="Jump to Approach"></button>
   <button class="scroll-dot" data-card="4" data-label="AI · Autopilot" aria-label="Jump to AI · Autopilot"></button>
   <button class="scroll-dot" data-card="5" data-label="Design system" aria-label="Jump to Design system"></button>
@@ -1721,12 +1768,13 @@ document.querySelectorAll('.dsd-chip').forEach(function(c){c.addEventListener('c
   // Re-bind anchor links to jump to the matching card
   var anchorToIdx={
     '#top':0,
-    '#design-value':1,
+    '#design-value':1,    /* legacy alias for old links */
+    '#insight':1,
     '#approach':2,
     '#ai-driven':3,
     '#design-system':4,
     '#contact':5,
-    '#blog':1,        /* blog lives inside Design Value card */
+    '#blog':1,            /* legacy alias — Blog now lives in Insight card */
     '#get-started':5  /* contact card */
   };
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
