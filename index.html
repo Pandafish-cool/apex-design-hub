@@ -398,6 +398,14 @@ body.light .hero-ticker .led{background:#0b7556;box-shadow:0 0 6px rgba(11,117,8
 .hero-ticker .msg{font-weight:500;color:var(--text)}
 
 /* ─── Design Insight — articles & news ─── */
+/* Title spark emoji — gentle pulse */
+.ins-spark{display:inline-block;animation:insSpark 3.6s ease-in-out infinite;transform-origin:50% 70%;margin-right:6px}
+@keyframes insSpark{0%,40%,100%{transform:scale(1) rotate(0)}10%{transform:scale(1.15) rotate(-6deg)}20%{transform:scale(1.1) rotate(4deg)}30%{transform:scale(1.06) rotate(-2deg)}}
+/* Insight sub-tagline: hashtag pills */
+.insight-tags{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px;font-family:'IBM Plex Mono',monospace}
+.insight-tag{font-size:11px;font-weight:500;letter-spacing:-.005em;color:var(--text-3);padding:5px 11px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;transition:color .2s ease,border-color .2s ease,background .2s ease;cursor:default}
+.insight-tag:hover{color:var(--mint);border-color:var(--mint);background:var(--mint-soft)}
+body.light .insight-tag:hover{color:var(--red);border-color:rgba(219,0,17,.35);background:rgba(219,0,17,.06)}
 .di-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-top:32px;max-width:1100px;margin-left:auto;margin-right:auto;text-align:left}
 .di-featured{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .25s ease,border-color .25s ease;backdrop-filter:blur(8px)}
 .di-featured:hover{transform:translateY(-3px);border-color:var(--mint)}
@@ -879,8 +887,14 @@ body.light .cm-icon svg{stroke:var(--red)}
   <div class="wrap">
     <div style="text-align:center;max-width:760px;margin:0 auto">
       <span class="eyebrow" style="margin-left:auto;margin-right:auto">Design Insight</span>
-      <h2 class="h2">Inspired by. <em>Debating about.</em></h2>
+      <h2 class="h2"><span class="ins-spark" aria-hidden="true">💡</span> Inspired by. <em>Thinking about.</em></h2>
       <p class="lede" style="margin:0 auto">A running thread of what's sparking our thinking — and the conversations we're having about what a <em>better experience</em> actually looks like.</p>
+      <div class="insight-tags" role="list" aria-label="Recurring themes">
+        <span class="insight-tag" role="listitem">#inspiration</span>
+        <span class="insight-tag" role="listitem">#craft</span>
+        <span class="insight-tag" role="listitem">#conversation</span>
+        <span class="insight-tag" role="listitem">#better-experience</span>
+      </div>
     </div>
 
     <!-- Featured + grid layout -->
