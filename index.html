@@ -697,24 +697,6 @@ body.light .aud-illus{background:#fbf8ef}
 .aud-title{font-size:18px;font-weight:700;letter-spacing:-.015em}
 .aud-desc{font-size:13px;color:var(--text-2);line-height:1.6}
 
-/* ─── UX Review callout (inside Process block) ─── */
-.ux-review-callout{display:flex;gap:18px;align-items:flex-start;margin-top:28px;padding:22px 26px;background:linear-gradient(135deg,var(--mint-soft),rgba(149,239,209,.03));border:1px solid rgba(149,239,209,.32);border-radius:18px;position:relative;backdrop-filter:blur(8px)}
-body.light .ux-review-callout{background:linear-gradient(135deg,rgba(219,0,17,.06),rgba(219,0,17,.01));border-color:rgba(219,0,17,.22)}
-.urc-mark{width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--mint-soft);border:1px solid rgba(149,239,209,.35);display:flex;align-items:center;justify-content:center}
-body.light .urc-mark{background:rgba(219,0,17,.1);border-color:rgba(219,0,17,.25)}
-.urc-mark svg{width:18px;height:18px;stroke:var(--mint);stroke-width:1.8;fill:none}
-body.light .urc-mark svg{stroke:var(--red)}
-.urc-content{flex:1;min-width:0}
-.urc-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);margin-bottom:8px}
-body.light .urc-eyebrow{color:var(--red)}
-.urc-body{font-size:15px;color:var(--text);line-height:1.6;letter-spacing:-.005em;margin-bottom:12px}
-.urc-body strong{font-weight:700}
-.urc-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--text-2);letter-spacing:-.005em}
-.urc-meta-item{display:inline-flex;align-items:center;gap:6px;font-weight:500}
-.urc-meta-dot{width:5px;height:5px;border-radius:50%;background:var(--mint)}
-body.light .urc-meta-dot{background:var(--red)}
-.urc-meta-sep{color:var(--text-3);opacity:.6}
-
 /* ─── Principles ─── */
 .prin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
 .prin{background:var(--surface);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:transform .3s ease,border-color .3s ease}
@@ -1027,24 +1009,6 @@ body.light .cm-icon svg{stroke:var(--red)}
       <div class="proc spot-target"><div class="proc-num">03 — Ideation</div><div class="proc-title">Concepts &amp; flows</div><div class="proc-desc">Sketches, system mapping and concept validation against component spec.</div></div>
       <div class="proc spot-target"><div class="proc-num">04 — Validation</div><div class="proc-title">Test &amp; iterate</div><div class="proc-desc">Prototypes go through usability, accessibility, and brand QA — looped back.</div></div>
       <div class="proc spot-target"><div class="proc-num">05 — Delivery</div><div class="proc-title">Hand-off &amp; measure</div><div class="proc-desc">Specs ship with adoption metrics so improvements stay observable in production.</div></div>
-    </div>
-
-    <!-- UX Review principle callout -->
-    <div class="ux-review-callout spot-target">
-      <div class="urc-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>
-      </div>
-      <div class="urc-content">
-        <div class="urc-eyebrow">UX Review principle</div>
-        <div class="urc-body"><strong>No design ships alone.</strong> Every flow goes through a peer UX review — two designers sign off against the principles checklist before hand-off. We catch the things one set of eyes always misses.</div>
-        <div class="urc-meta">
-          <span class="urc-meta-item"><span class="urc-meta-dot"></span>2 reviewers</span>
-          <span class="urc-meta-sep">·</span>
-          <span class="urc-meta-item"><span class="urc-meta-dot"></span>Principles checklist</span>
-          <span class="urc-meta-sep">·</span>
-          <span class="urc-meta-item"><span class="urc-meta-dot"></span>Before every hand-off</span>
-        </div>
-      </div>
     </div>
     </div>
 
