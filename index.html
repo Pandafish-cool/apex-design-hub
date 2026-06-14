@@ -135,6 +135,16 @@ body.light .section-card{box-shadow:0 24px 60px rgba(28,26,20,.12),0 6px 16px rg
   backdrop-filter:blur(140px) saturate(200%);
   -webkit-backdrop-filter:blur(140px) saturate(200%);
 }
+/* ─── Hero WebGL nebula shader ─── */
+.hero-shader-host{background:#06040c !important;overflow:hidden}
+.deck-slide.is-active .hero-shader-host{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+.hero-shader{position:absolute;inset:0;width:100%;height:100%;border-radius:32px;pointer-events:none;z-index:0;display:block;opacity:1;transition:opacity .6s ease}
+/* Soft vignette so text stays readable on top of animated bg */
+.hero-shader-veil{position:absolute;inset:0;border-radius:32px;pointer-events:none;z-index:1;background:radial-gradient(ellipse 80% 60% at 50% 45%,rgba(6,4,12,.0) 0%,rgba(6,4,12,.35) 60%,rgba(6,4,12,.7) 100%)}
+.hero-shader-host > .card-num,.hero-shader-host > section{position:relative;z-index:2}
+/* Light mode: hide shader and revert to default card bg */
+body.light .hero-shader-host{background:var(--card-bg) !important}
+body.light .hero-shader,body.light .hero-shader-veil{display:none}
 /* For non-active cards: blur the INNER content (not the card frame).
    Edges, border, background and shadow stay sharp at the peeking strip;
    text/SVG/cards inside become unreadable. */
@@ -837,7 +847,9 @@ body.light .cm-icon svg{stroke:var(--red)}
 <div class="deck-container" id="deck">
   <div class="deck-stage" id="deckStage">
     <div class="deck-slide">
-      <div class="section-card" data-card="1" data-label="Welcome">
+      <div class="section-card hero-shader-host" data-card="1" data-label="Welcome">
+  <canvas id="heroShader" class="hero-shader" aria-hidden="true"></canvas>
+  <div class="hero-shader-veil" aria-hidden="true"></div>
   <span class="card-num">01<span class="of">/</span>06</span>
   <section id="top" class="hero wrap">
   <div class="hero-grid">
@@ -1805,6 +1817,56 @@ document.querySelectorAll('.dsd-chip').forEach(function(c){c.addEventListener('c
   initActive();
   if(dots[0])dots[0].classList.add('active');
   if(prevBtn)prevBtn.classList.add('disabled');
+})();
+
+// ─── Hero WebGL nebula shader (animated background) ───
+(function initHeroShader(){
+  var canvas=document.getElementById('heroShader');
+  if(!canvas)return;
+  var gl=canvas.getContext('webgl2');
+  if(!gl){canvas.style.display='none';return;}
+  var dpr=Math.max(1,0.5*window.devicePixelRatio);
+  var vertSrc='#version 300 es\nprecision highp float;\nin vec4 position;\nvoid main(){gl_Position=position;}';
+  var fragSrc='#version 300 es\nprecision highp float;\nout vec4 O;\nuniform vec2 resolution;\nuniform float time;\n#define FC gl_FragCoord.xy\n#define T time\n#define R resolution\n#define MN min(R.x,R.y)\nfloat rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}\nfloat noise(in vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);float a=rnd(i),b=rnd(i+vec2(1,0)),c=rnd(i+vec2(0,1)),d=rnd(i+1.);return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}\nfloat fbm(vec2 p){float t=.0,a=1.;mat2 m=mat2(1.,-.5,.2,1.2);for(int i=0;i<5;i++){t+=a*noise(p);p*=2.*m;a*=.5;}return t;}\nfloat clouds(vec2 p){float d=1.,t=.0;for(float i=.0;i<3.;i++){float a=d*fbm(i*10.+p.x*.2+.2*(1.+i)*p.y+d+i*i+p);t=mix(t,d,a);d=a;p*=2./(i+1.);}return t;}\nvoid main(void){\n  vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2,1);\n  vec3 col=vec3(0);\n  float bg=clouds(vec2(st.x+T*.5,-st.y));\n  uv*=1.-.3*(sin(T*.2)*.5+.5);\n  for(float i=1.;i<12.;i++){\n    uv+=.1*cos(i*vec2(.1+.01*i,.8)+i*i+T*.5+.1*uv.x);\n    vec2 p=uv;\n    float d=length(p);\n    col+=.00125/d*(cos(sin(i)*vec3(1,2,3))+1.);\n    float b=noise(i+p+bg*1.731);\n    col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));\n    col=mix(col,vec3(bg*.16,bg*.18,bg*.30),d);\n  }\n  O=vec4(col,1);\n}';
+  function compile(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.warn('hero shader compile:',gl.getShaderInfoLog(s));}return s;}
+  var vs=compile(gl.VERTEX_SHADER,vertSrc);
+  var fs=compile(gl.FRAGMENT_SHADER,fragSrc);
+  var program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);
+  if(!gl.getProgramParameter(program,gl.LINK_STATUS)){console.warn('hero shader link:',gl.getProgramInfoLog(program));return;}
+  var buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,1,-1,-1,1,1,1,-1]),gl.STATIC_DRAW);
+  var posLoc=gl.getAttribLocation(program,'position');
+  gl.enableVertexAttribArray(posLoc);gl.vertexAttribPointer(posLoc,2,gl.FLOAT,false,0,0);
+  var uRes=gl.getUniformLocation(program,'resolution');
+  var uTime=gl.getUniformLocation(program,'time');
+  function resize(){
+    var rect=canvas.getBoundingClientRect();
+    if(rect.width===0||rect.height===0)return;
+    canvas.width=Math.max(1,Math.floor(rect.width*dpr));
+    canvas.height=Math.max(1,Math.floor(rect.height*dpr));
+    gl.viewport(0,0,canvas.width,canvas.height);
+  }
+  var running=true;
+  function render(now){
+    if(!running)return;
+    if(canvas.width===0||canvas.height===0)resize();
+    gl.useProgram(program);
+    gl.uniform2f(uRes,canvas.width,canvas.height);
+    gl.uniform1f(uTime,now*1e-3);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+    requestAnimationFrame(render);
+  }
+  resize();
+  requestAnimationFrame(render);
+  window.addEventListener('resize',function(){dpr=Math.max(1,0.5*window.devicePixelRatio);resize();});
+  // Pause shader when user is in light mode to save GPU
+  function syncTheme(){
+    if(document.body.classList.contains('light')){canvas.style.display='none';running=false;}
+    else{canvas.style.display='block';if(!running){running=true;resize();requestAnimationFrame(render);}}
+  }
+  syncTheme();
+  // Hook into theme toggle: observe body class changes
+  new MutationObserver(syncTheme).observe(document.body,{attributes:true,attributeFilter:['class']});
 })();
 
 // ─── Team avatars hover ───
